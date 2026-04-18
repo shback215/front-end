@@ -6,16 +6,15 @@ export const useMovieContext = () => useContext(MovieContext)
 
 export const MovieProvider = ({children}) => {
     const [favorites, setFavorites] = useState([])
+    useEffect(() => {
+        const storedFavs = localStorage.getItem("movie-favorites");
+        if (storedFavs) setFavorites(JSON.parse(storedFavs));
+    }, []); // <--- Make sure these brackets are here!
 
     useEffect(() => {
-        const storedFavs = localStorage.getItem("movie-favorites")
-        if (storedFavs) setFavorites(JSON.parse(storedFavs))
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('movie-favorites', JSON.stringify(favorites))
-    }, [favorites])
-
+        localStorage.setItem("movie-favorites", JSON.stringify(favorites));
+    }, [favorites]); // <--- Must watch the favorites state
+    
     const addToFavorites = (movie) => {
         setFavorites(prev => [...prev, movie])
     }
