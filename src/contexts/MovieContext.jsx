@@ -5,16 +5,23 @@ const MovieContext = createContext()
 export const useMovieContext = () => useContext(MovieContext)
 
 export const MovieProvider = ({children}) => {
+
     const [favorites, setFavorites] = useState([])
+
+    // 1. LOAD: Runs once when the app starts to grab data from the browser
     useEffect(() => {
         const storedFavs = localStorage.getItem("movie-favorites");
-        if (storedFavs) setFavorites(JSON.parse(storedFavs));
-    }, []); // <--- Make sure these brackets are here!
 
+        if (storedFavs) {
+            setFavorites(JSON.parse(storedFavs));
+        }
+    }, []); // Empty brackets [] are CRITICAL to prevent an infinite loop
+
+    // 2. SAVE: Runs every time the 'favorites' state changes
     useEffect(() => {
         localStorage.setItem("movie-favorites", JSON.stringify(favorites));
-    }, [favorites]); // <--- Must watch the favorites state
-    
+    }, [favorites]); // Only runs when the favorites array is updated
+
     const addToFavorites = (movie) => {
         setFavorites(prev => [...prev, movie])
     }
@@ -34,7 +41,9 @@ export const MovieProvider = ({children}) => {
         isFavorite
     }
 
-    return <MovieContext.Provider value={value}>
-        {children}
-    </MovieContext.Provider>
+    return (
+        <MovieContext.Provider value={value}>
+            {children}
+        </MovieContext.Provider>
+    )
 }
