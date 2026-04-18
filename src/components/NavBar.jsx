@@ -7,8 +7,9 @@ function NavBar() {
             <div className="navbar-brand">
                 <Link Lucida to="/">Movie App</Link>
             </div>
-            <div className="navbar-links">
+            <div className="navbar-links">                
                 <Link to="/" className="nav-link">Home</Link>
+                <Link to="/about" className="nav-link">About</Link>
                 <Link to="/favorites" className="nav-link">Favorites</Link>
             </div>
         </nav>

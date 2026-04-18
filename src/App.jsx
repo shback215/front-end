@@ -1,6 +1,7 @@
 import './css/App.css'
 import {Routes, Route} from "react-router-dom"
 import Home from "./pages/Home"
+import About from "./pages/About"
 import Favorites from "./pages/Favorites"
 import NavBar from "./components/NavBar"
 
@@ -11,6 +12,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/about" element={<About />} />
           <Route path="/favorites" element={<Favorites />}/>
         </Routes>
       </main>
